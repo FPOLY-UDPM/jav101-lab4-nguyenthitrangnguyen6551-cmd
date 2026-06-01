@@ -1,0 +1,45 @@
+%%{init: { 'theme': 'neutral' } }%%
+graph TD
+    subgraph NenTong ["ỨNG DỤNG VÍ DỤ QUẢN LÝ SINH VIÊN THEO MÔ HÌNH MVC (SERVLET / JSP / JDBC)"]
+    %% 1. Định nghĩa các lớp Style
+        classDef client fill:#ffe3e3,stroke:#fa5252,stroke-width:1.5px,color:#2b2b2b;
+        classDef controller fill:#e7f5ff,stroke:#228be6,stroke-width:1.5px,color:#2b2b2b;
+        classDef view fill:#f3f0ff,stroke:#7950f2,stroke-width:1.5px,color:#2b2b2b;
+        classDef model fill:#fff9db,stroke:#fcc419,stroke-width:1.5px,color:#2b2b2b;
+        classDef dao fill:#e6fcf5,stroke:#0ca678,stroke-width:1.5px,color:#2b2b2b;
+        classDef db fill:#fff0f6,stroke:#e64980,stroke-width:1.5px,color:#2b2b2b;
+    %% 2. Các tầng nằm bên trong sơ đồ
+        subgraph Client ["Client / Trình duyệt"]
+            B["Trình duyệt Web"]:::client
+        end
+
+        subgraph Presentation_Layer ["View / Tầng hiển thị"]
+            V_List["student-list.jsp"]:::view
+            V_Index["index.jsp"]:::view
+        end
+        subgraph Controller_Layer ["Controller / Tầng điều khiển"]
+            Servlet["StudentServlet"]:::controller
+        end
+        subgraph Model_Layer ["Model / Đối tượng dữ liệu"]
+            M_Student["Student"]:::model
+        end
+        subgraph DAO_Layer ["DAO / Tầng truy cập dữ liệu"]
+            DAO_Student["StudentDAO"]:::dao
+            Conn["DBConnection"]:::dao
+        end
+        subgraph Database_Layer ["Database / Cơ sở dữ liệu"]
+            DB[("MS SQL Server - QLSV")]:::db
+        end
+    %% 3. Mối quan hệ tương tác
+        B -->|1. Yêu cầu HTTP GET /students| Servlet
+        Servlet -->|2. Gọi hàm lấy dữ liệu| DAO_Student
+        DAO_Student -->|3. Yêu cầu Connection| Conn
+        Conn -->|4. Kết nối JDBC| DB
+        DB -->|5. Trả về ResultSet| DAO_Student
+        DAO_Student -.->|6. Map dữ liệu thành| M_Student
+        DAO_Student -->|7. Trả về List Student| Servlet
+        Servlet -->|8. Đính kèm dữ liệu & Chuyển tiếp| V_List
+        V_List -->|9. Tạo trang HTML & Trả về| B
+    end
+%% 4. Tạo nền sáng cho sơ đồ
+    style NenTong fill:#FAF9F6,stroke:#E0DCD3,stroke-width:2px,color:#333333
