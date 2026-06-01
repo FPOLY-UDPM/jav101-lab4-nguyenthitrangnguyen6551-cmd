@@ -17,6 +17,7 @@ public Student(int id, String masv, String hoten) {
     this.masv = masv;
     this.hoten = hoten;
 }
+
 public int getId() {
         return id;
     }

@@ -17,6 +17,7 @@ public class StudentServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action == null) action = "list";
         switch (action) {
+
             case "new":
                 req.getRequestDispatcher("/views/student-form.jsp").forward(req,
                         resp);

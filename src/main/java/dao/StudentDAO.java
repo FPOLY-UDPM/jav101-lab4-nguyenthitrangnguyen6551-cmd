@@ -108,6 +108,7 @@ public class StudentDAO {
         }
     }
 
+
     public void delete(int id) {
         String sql = "DELETE FROM SINHVIEN WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
